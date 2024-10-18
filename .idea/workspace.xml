@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64061817-e135-4566-bcf4-6a77409d49f7" name="Changes" comment="27/09 - Pilha usando lista encadeada, com e sem cabeça" />
+    <list default="true" id="64061817-e135-4566-bcf4-6a77409d49f7" name="Changes" comment="27/09 - Pilha usando lista encadeada, com e sem cabeça">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/fila.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,9 +23,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2mek09SIljucJxPeWyqs83i96nq" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -31,8 +34,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.fila.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -158,6 +162,8 @@
       <option name="presentableId" value="Default" />
       <updated>1727444205883</updated>
       <workItem from="1727444206955" duration="487000" />
+      <workItem from="1727445016795" duration="165000" />
+      <workItem from="1729252726062" duration="5211000" />
     </task>
     <task id="LOCAL-00001" summary="27/09 - Pilha usando lista encadeada, com e sem cabeça">
       <option name="closed" value="true" />
@@ -167,7 +173,15 @@
       <option name="project" value="LOCAL" />
       <updated>1727444664439</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="27/09 - Pilha usando lista encadeada, com e sem cabeça">
+      <option name="closed" value="true" />
+      <created>1727445086955</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1727445086955</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
