@@ -2,69 +2,78 @@ package org.example;
 
 import java.util.Scanner;
 
-class No {
-    int posicao;
-    No proximo;
-
-    public No(int posicao) {
-        this.posicao = posicao;
-        this.proximo = null;
-    }
-}
-
 public class fila {
-    private No proximo; // ponteiro pro prox
+    private static int posicao = -1; // valor inicial
+    private static fila proximo = null; // próximo na fila
 
-
-    public fila() {
-        this.proximo = null; // começa vazia
+    public fila(int posicao) {
+        fila.posicao = posicao;
+        fila.proximo = null;
     }
 
-    public void enqueue(int posicao) { // add
-        No novinho = new No(posicao); // instanciando um novo nó
+    public static void enqueue(int valor) {
+        if (posicao == -1) { // Caso a fila esteja vazia
+            posicao = valor;
+            proximo = null;
+        } else {
+            fila atual = new fila(valor);
+            fila temp = fila.proximo;
+            fila ultimo = fila.proximo;
 
-        if (proximo == null) {
-            proximo = novinho;}
-        else {
-            No primeiro = proximo;
-            
-            while (primeiro.proximo != null) { 
-                primeiro = primeiro.proximo; }
-
-            primeiro.proximo = novinho;
+            if (ultimo == null) {
+                proximo = atual;
+            } else {
+                while (ultimo.proximo != null) {
+                    ultimo = ultimo.proximo;
+                }
+                ultimo.proximo = atual;
+            }
         }
     }
-    
-    public int dequeue() {
-        if (proximo == null) {
-            return -9; } // valor de erro
 
-        int posicaoTirar = proximo.posicao;
-        proximo = proximo.proximo; // aponta pro prox nó
-        return posicaoTirar;
+    public static int dequeue() {
+        if (posicao == -1) {
+            System.out.println("Fila vazia.");
+            return -9; // valor de erro
+        }
+
+        int valorRemovido = posicao; // pega o valor da frente
+        if (proximo != null) {
+            posicao = proximo.posicao;
+            proximo = proximo.proximo; // move o próximo na fila
+        } else {
+            posicao = -1; // esvaziando a fila
+            proximo = null;
+        }
+        return valorRemovido;
     }
 
-    public String conteudo() {
-        StringBuilder conteudo = new StringBuilder(); // para concatenar strings
-        No novinho = proximo; // começa do primeiro nó
-        while (novinho != null) {
-            conteudo.append(novinho.posicao).append("\n");
-            novinho = novinho.proximo;
+    public static String conteudo() {
+        StringBuilder sb = new StringBuilder();
+        if (posicao == -1) {
+            return "Fila vazia.";
         }
-        return conteudo.toString();
+
+        sb.append(posicao).append("\n");
+        fila atual = proximo;
+        while (atual != null) {
+            sb.append(atual.posicao).append("\n");
+            atual = atual.proximo;
+        }
+        return sb.toString();
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        fila fila = new fila();
 
-        fila.enqueue(10);
-        fila.enqueue(20);
-        fila.enqueue(30);
+        enqueue(10);
+        enqueue(20);
+        enqueue(30);
 
-        System.out.print("Conteúdo da fila:" + fila.conteudo());
-        System.out.println("Retirando: " + fila.dequeue());
-        System.out.print("Novo conteúdo da fila:" + fila.conteudo());
+        System.out.print("Conteúdo da fila:\n" + conteudo());
+        System.out.println("Retirando: " + dequeue());
+        System.out.print("Novo conteúdo da fila:\n" + conteudo());
+
         scanner.close();
     }
 }
