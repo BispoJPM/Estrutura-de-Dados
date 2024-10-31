@@ -1,79 +1,83 @@
-package org.example;
+public class Fila {
+    private class Noz {
+        int elemento;
+        Noz proximo;
 
-import java.util.Scanner;
-
-public class fila {
-    private static int posicao = -1; // valor inicial
-    private static fila proximo = null; // próximo na fila
-
-    public fila(int posicao) {
-        fila.posicao = posicao;
-        fila.proximo = null;
+        Noz(int elemento) {
+            this.elemento = elemento;
+        }
     }
 
-    public static void enqueue(int valor) {
-        if (posicao == -1) { // Caso a fila esteja vazia
-            posicao = valor;
-            proximo = null;
+    private Noz primeiro;
+    private Noz ultimo;
+    private int tamanho;
+
+    public Fila() {
+        this.primeiro = null;
+        this.ultimo = null;
+        this.tamanho = 0;
+    }
+
+    public void adicionar(int elemento) {
+        Noz novoNoz = new Noz(elemento);
+        if (estaVazia()) {
+            primeiro = novoNoz;
         } else {
-            fila atual = new fila(valor);
-            fila temp = fila.proximo;
-            fila ultimo = fila.proximo;
-
-            if (ultimo == null) {
-                proximo = atual;
-            } else {
-                while (ultimo.proximo != null) {
-                    ultimo = ultimo.proximo;
-                }
-                ultimo.proximo = atual;
-            }
+            ultimo.proximo = novoNoz;
         }
+        ultimo = novoNoz;
+        tamanho++;
     }
 
-    public static int dequeue() {
-        if (posicao == -1) {
-            System.out.println("Fila vazia.");
-            return -9; // valor de erro
+    public int remover() {
+        if (estaVazia()) {
+            throw new IllegalStateException("A fila está vazia.");
         }
-
-        int valorRemovido = posicao; // pega o valor da frente
-        if (proximo != null) {
-            posicao = proximo.posicao;
-            proximo = proximo.proximo; // move o próximo na fila
-        } else {
-            posicao = -1; // esvaziando a fila
-            proximo = null;
+        int elementoRemovido = primeiro.elemento;
+        primeiro = primeiro.proximo;
+        if (primeiro == null) {
+            ultimo = null;
         }
-        return valorRemovido;
+        tamanho--;
+        return elementoRemovido;
     }
 
-    public static String conteudo() {
-        StringBuilder sb = new StringBuilder();
-        if (posicao == -1) {
-            return "Fila vazia.";
+    public int primeiro() {
+        if (estaVazia()) {
+            throw new IllegalStateException("A fila está vazia.");
         }
-
-        sb.append(posicao).append("\n");
-        fila atual = proximo;
-        while (atual != null) {
-            sb.append(atual.posicao).append("\n");
-            atual = atual.proximo;
-        }
-        return sb.toString();
+        return primeiro.elemento;
     }
 
+    public boolean estaVazia() {
+        return tamanho == 0;
+    }
+
+    public int tamanho() {
+        return tamanho;
+    }
+}
+
+public class FilaTest {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Fila fila = new Fila();
 
-        enqueue(10);
-        enqueue(20);
-        enqueue(30);
+        fila.adicionar(10);
+        fila.adicionar(20);
+        fila.adicionar(30);
+        
+        System.out.println("Primeiro elemento: " + fila.primeiro());
+        System.out.println("Tamanho da fila: " + fila.tamanho());
 
-        System.out.print("Conteúdo da fila:\n" + conteudo());
-        System.out.println("Retirando: " + dequeue());
-        System.out.print("Novo conteúdo da fila:\n" + conteudo());
+        System.out.println("Elemento removido: " + fila.remover());
+        System.out.println("Novo primeiro elemento: " + fila.primeiro());
+        System.out.println("Tamanho da fila: " + fila.tamanho());
 
-        scanner.close();
+        System.out.println("A fila está vazia: " + fila.estaVazia());
+
+        fila.remover();
+        fila.remover();
+        System.out.println("Tamanho da fila após remoções: " + fila.tamanho());
+        System.out.println("A fila está vazia: " + fila.estaVazia());
     }
 }
