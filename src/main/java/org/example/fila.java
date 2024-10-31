@@ -1,40 +1,42 @@
-public class Fila {
-    private class Noz {
-        int elemento;
-        Noz proximo;
+public class No { // classe nó -> os nó da lista 
+    int elemento; // valor do nó
+    No proximo; // ponteiro pro proximo [ X | ---]---> [ Y | ---]---> @ = nulo
 
-        Noz(int elemento) {
-            this.elemento = elemento;
-        }
+    public No(int elemento) { // construtor do nó
+        this.elemento = elemento;
+        this.proximo = null; // inicializa a referência para o próximo nó como null [ Y | ---]---> @ = nulo
     }
+}
 
-    private Noz primeiro;
-    private Noz ultimo;
-    private int tamanho;
+public class Fila { // classe fila -> aqui gerencia os nó
+    private No primeiro; // ponteiro para o primeiro nó
+    private No ultimo; // ponteiro para o último nó    
+    private int tamanho; // tamanho da fila
 
-    public Fila() {
-        this.primeiro = null;
-        this.ultimo = null;
-        this.tamanho = 0;
-    }
+    public Fila() { // construtor da fila
+        this.primeiro = null; // primeiro = null
+        this.ultimo = null; // ultimo = null
+        this.tamanho = 0; // tamanho é 0, pois não há elementos
+    } 
 
     public void adicionar(int elemento) {
-        Noz novoNoz = new Noz(elemento);
-        if (estaVazia()) {
-            primeiro = novoNoz;
+        No novo = new No(elemento); // nova variavel (ponteiro)
+        if (conteudo()) {
+            primeiro = novo;
+            ultimo = novo;
         } else {
-            ultimo.proximo = novoNoz;
+            ultimo.proximo = novo; // variavel acessando o atributo e setando como novo
+            ultimo = novo;
         }
-        ultimo = novoNoz;
         tamanho++;
     }
 
     public int remover() {
-        if (estaVazia()) {
+        if (conteudo()) {
             throw new IllegalStateException("A fila está vazia.");
         }
-        int elementoRemovido = primeiro.elemento;
-        primeiro = primeiro.proximo;
+        int elementoRemovido = primeiro.elemento; // variavel com o valor do 1
+        primeiro = primeiro.proximo; // atualizando pro prox
         if (primeiro == null) {
             ultimo = null;
         }
@@ -43,13 +45,13 @@ public class Fila {
     }
 
     public int primeiro() {
-        if (estaVazia()) {
+        if (conteudo()) {
             throw new IllegalStateException("A fila está vazia.");
         }
         return primeiro.elemento;
     }
 
-    public boolean estaVazia() {
+    public boolean conteudo() {
         return tamanho == 0;
     }
 
@@ -68,16 +70,15 @@ public class FilaTest {
         
         System.out.println("Primeiro elemento: " + fila.primeiro());
         System.out.println("Tamanho da fila: " + fila.tamanho());
-
         System.out.println("Elemento removido: " + fila.remover());
-        System.out.println("Novo primeiro elemento: " + fila.primeiro());
+        System.out.println("Primeiro elemento: " + fila.primeiro());
         System.out.println("Tamanho da fila: " + fila.tamanho());
-
-        System.out.println("A fila está vazia: " + fila.estaVazia());
-
+        System.out.println("A fila está vazia: " + fila.conteudo());
+        
         fila.remover();
         fila.remover();
-        System.out.println("Tamanho da fila após remoções: " + fila.tamanho());
-        System.out.println("A fila está vazia: " + fila.estaVazia());
+        
+        System.out.println("Tamanho: " + fila.tamanho());
+        System.out.println("A fila está vazia: " + fila.conteudo());
     }
 }
