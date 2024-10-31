@@ -1,22 +1,22 @@
-public class No { // classe nó -> os nó da lista 
-    int elemento; // valor do nó
+public class No { 
+    int elemento; 
     No proximo; // ponteiro pro proximo [ X | ---]---> [ Y | ---]---> @ = nulo
 
-    public No(int elemento) { // construtor do nó
+    public No(int elemento) { 
         this.elemento = elemento;
         this.proximo = null; // inicializa a referência para o próximo nó como null [ Y | ---]---> @ = nulo
     }
 }
 
-public class Fila { // classe fila -> aqui gerencia os nó
-    private No primeiro; // ponteiro para o primeiro nó
-    private No ultimo; // ponteiro para o último nó    
-    private int tamanho; // tamanho da fila
+public class Fila { 
+    private No primeiro; 
+    private No ultimo; 
+    private int tamanho; 
 
-    public Fila() { // construtor da fila
-        this.primeiro = null; // primeiro = null
-        this.ultimo = null; // ultimo = null
-        this.tamanho = 0; // tamanho é 0, pois não há elementos
+    public Fila() { 
+        this.primeiro = null; 
+        this.ultimo = null; 
+        this.tamanho = 0;
     } 
 
     public void adicionar(int elemento) {
