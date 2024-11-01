@@ -2,8 +2,8 @@ package org.example;
 
 public class Exec {
     public static void main(String[] args) {
-        No primeiro = null;
-        No ultimo = null;
+        Lista primeiro = null;
+        Lista ultimo = null;
         int tamanho = 0;
 
         Fila fila = new Fila();
