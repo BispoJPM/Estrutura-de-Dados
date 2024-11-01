@@ -8,77 +8,61 @@ public class No {
     }
 }
 
-public class Fila { 
-    private No primeiro; 
-    private No ultimo; 
-    private int tamanho; 
-
-    public Fila() { 
-        this.primeiro = null; 
-        this.ultimo = null; 
-        this.tamanho = 0;
-    } 
-
-    public void adicionar(int elemento) {
-        No novo = new No(elemento); // nova variavel (ponteiro)
-        if (conteudo()) {
-            primeiro = novo;
-            ultimo = novo;
-        } else {
-            ultimo.proximo = novo; // variavel acessando o atributo e setando como novo
-            ultimo = novo;
-        }
-        tamanho++;
-    }
-
-    public int remover() {
-        if (conteudo()) {
-            throw new IllegalStateException("A fila está vazia.");
-        }
-        int elementoRemovido = primeiro.elemento; // variavel com o valor do 1
-        primeiro = primeiro.proximo; // atualizando pro prox
-        if (primeiro == null) {
-            ultimo = null;
-        }
-        tamanho--;
-        return elementoRemovido;
-    }
-
-    public int primeiro() {
-        if (conteudo()) {
-            throw new IllegalStateException("A fila está vazia.");
-        }
-        return primeiro.elemento;
-    }
-
-    public boolean conteudo() {
-        return tamanho == 0;
-    }
-
-    public int tamanho() {
-        return tamanho;
-    }
-}
-
 public class FilaTest {
     public static void main(String[] args) {
-        Fila fila = new Fila();
+        
+        No primeiro = null;
+        No ultimo = null;
+        int tamanho = 0;
 
-        fila.adicionar(10);
-        fila.adicionar(20);
-        fila.adicionar(30);
-        
-        System.out.println("Primeiro elemento: " + fila.primeiro());
-        System.out.println("Tamanho da fila: " + fila.tamanho());
-        System.out.println("Elemento removido: " + fila.remover());
-        System.out.println("Primeiro elemento: " + fila.primeiro());
-        System.out.println("Tamanho da fila: " + fila.tamanho());
-        System.out.println("A fila está vazia: " + fila.conteudo());
-        
-        fila.remover();
-        fila.remover();
-        
-        System.out.println("Tamanho: " + fila.tamanho());
-        System.out.println("A fila está vazia: " + fila.conteudo());
+        void adicionar(int elemento) {
+            No novo = new No(elemento); // nova variável (ponteiro)
+            if (conteudo()) {
+                primeiro = novo;
+                ultimo = novo;
+            } else {
+                ultimo.proximo = novo; // variável acessando o atributo e setando como novo
+                ultimo = novo;
+            }
+            tamanho++;
+        }
+
+        int remover() {
+            if (conteudo()) {
+                throw new IllegalStateException("A fila está vazia.");
+            }
+            int elementoRemovido = primeiro.elemento; // variável com o valor do primeiro
+            primeiro = primeiro.proximo; // atualizando para o próximo
+            if (primeiro == null) {
+                ultimo = null;
+            }
+            tamanho--;
+            return elementoRemovido;
+        }
+
+        boolean conteudo() {
+            return tamanho == 0;
+        }
+
+        int tamanhoFila() {
+            return tamanho;
+        }
+
+        adicionar(10);
+        adicionar(20);
+        adicionar(30);
+
+        System.out.println("Primeiro elemento: " + (conteudo() ? "Fila vazia" : primeiro.elemento));
+        System.out.println("Tamanho da fila: " + tamanhoFila());
+        System.out.println("Elemento removido: " + remover());
+        System.out.println("Primeiro elemento: " + (conteudo() ? "Fila vazia" : primeiro.elemento));
+        System.out.println("Tamanho da fila: " + tamanhoFila());
+        System.out.println("A fila está vazia: " + conteudo());
+
+        remover();
+        remover();
+
+        System.out.println("Tamanho: " + tamanhoFila());
+        System.out.println("A fila está vazia: " + conteudo());
     }
 }
