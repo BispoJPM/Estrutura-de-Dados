@@ -1,6 +1,6 @@
 package org.example;
 
-public class Exec {
+public class listaExec {
     public static void main(String[] args) {
         Lista primeiro = null;
         Lista ultimo = null;
