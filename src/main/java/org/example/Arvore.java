@@ -52,8 +52,11 @@ class Arvore {
                 linhaVertical(raiz.dir);
             }
         }
-
-    Arvore remove(Arvore raiz, int valor) {
+    Arvore remove(int valor) {
+        return remove(this, valor);
+    }
+    
+    private Arvore remove(Arvore raiz, int valor) {
         if (raiz == null) {
             return null;
         }
@@ -114,7 +117,7 @@ class Arvore {
         raiz = arvore.insere(raiz, 18);
         System.out.println("Árvore:");
         arvore.linhaVertical(raiz);
-        raiz = arvore.remove(raiz, 15);
+        raiz = arvore.remove(15);
         System.out.println("Árvore depois de remover:");
         arvore.linhaVertical(raiz);
         
