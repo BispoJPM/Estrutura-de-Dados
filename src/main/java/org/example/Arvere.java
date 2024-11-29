@@ -56,7 +56,7 @@ class Arvere {
             } else if (valor > noAtual.conteudo) {
                 noAtual = noAtual.dir;
             } else {
-                break; // Valor encontrado
+                break;
             }
         }
 
