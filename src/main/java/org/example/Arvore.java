@@ -96,7 +96,7 @@ class Arvore {
         System.out.println("Árvore:");
         arvore.linhaVertical(raiz);
         raiz = arvore.remove(15);
-        System.out.println("Árvore depois de remover:");
+        System.out.println("Árvere:");
         arvore.linhaVertical(raiz);
         }
     }
