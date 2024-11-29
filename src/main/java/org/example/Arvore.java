@@ -45,11 +45,11 @@ class Arvore {
     //     return raiz;
     // }
 
-        void imprimeInOrderLinha(Arvore raiz) {
+        void linhaVertical(Arvore raiz) {
             if (raiz != null) {
-                imprimeInOrderLinha(raiz.esq);
+                linhaVertical(raiz.esq);
                 System.out.println(raiz.conteudo);
-                imprimeInOrderLinha(raiz.dir);
+                linhaVertical(raiz.dir);
             }
         }
 
@@ -113,10 +113,10 @@ class Arvore {
         raiz = arvore.insere(raiz, 12);
         raiz = arvore.insere(raiz, 18);
         System.out.println("Árvore:");
-        arvore.imprimeInOrderLinha(raiz);
+        arvore.linhaVertical(raiz);
         raiz = arvore.remove(raiz, 15);
         System.out.println("Árvore depois de remover:");
-        arvore.imprimeInOrderLinha(raiz);
+        arvore.linhaVertical(raiz);
         
         // Arvore resultadoRecursivo = arvore.buscaRecursiva(raiz, 7);
         // if (resultadoRecursivo != null) {
