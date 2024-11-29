@@ -60,6 +60,8 @@
 ![image](https://github.com/user-attachments/assets/3f117040-d8b7-47c7-8487-8a2e9385ee41)
 
 > Inserir: Insere um novo nó na árvore, geralmente seguindo a regra de que valores menores que o nó atual vão para a esquerda e valores maiores para a direita. Ele é recursivo, até encontrar uma posição vaga para o nó.
+
 > A busca percorre a árvore para encontrar um valor específico, comparando o valor com o nó atual. Se o valor for menor, busca-se à esquerda, e se for maior, à direita. Pode ser feita recursivamente ou iterativamente.
+
 > A remoção exclui um nó da árvore, ajustando a estrutura conforme necessário. Se o nó tiver filhos, o nó é substituído pelo nó mais adequado (geralmente o menor nó da subárvore à direita ou o maior da subárvore à esquerda). Se não tiver filhos, é apenas desconectado.
 </details>
