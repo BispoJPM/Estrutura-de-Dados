@@ -47,7 +47,7 @@ class Arvore {
 
         void imprimeInOrderLinha(Arvore raiz) {
             if (raiz != null) {
-                imprimeInOrderLinha(raiz.esq); 
+                imprimeInOrderLinha(raiz.esq);
                 System.out.println(raiz.conteudo);
                 imprimeInOrderLinha(raiz.dir);
             }
@@ -103,8 +103,8 @@ class Arvore {
     }
     
     public static void main(String[] args) {
-        Arvore raiz = null;
         Arvore arvore = new Arvore(6);
+        Arvore raiz = arvore;
 
         raiz = arvore.insere(raiz, 5);
         raiz = arvore.insere(raiz, 15);
@@ -112,9 +112,11 @@ class Arvore {
         raiz = arvore.insere(raiz, 7);
         raiz = arvore.insere(raiz, 12);
         raiz = arvore.insere(raiz, 18);
-        // raiz = arvore.remove(raiz, 15);  
-        System.out.println("Valores da Árvore (um embaixo do outro):");
-            arvore.imprimeInOrderLinha(raiz);
+        System.out.println("Árvore:");
+        arvore.imprimeInOrderLinha(raiz);
+        raiz = arvore.remove(raiz, 15);
+        System.out.println("Árvore depois de remover:");
+        arvore.imprimeInOrderLinha(raiz);
         
         // Arvore resultadoRecursivo = arvore.buscaRecursiva(raiz, 7);
         // if (resultadoRecursivo != null) {
@@ -130,4 +132,4 @@ class Arvore {
         //     System.out.println("Não tem.");
         }
     }
-}
+
