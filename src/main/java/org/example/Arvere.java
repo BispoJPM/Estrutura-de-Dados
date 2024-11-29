@@ -2,18 +2,18 @@ package org.example;
 
 class Arvere {
     int conteudo;
-    Arvore esq;
-    Arvore dir;
+    Arvere esq;
+    Arvere dir;
 
-    Arvore(int conteudo) {
+    Arvere(int conteudo) {
         this.conteudo = conteudo;
         this.esq = null;
         this.dir = null;
     }
 
-    Arvore insere(Arvore raiz, int valor) {
+    Arvere insere(Arvere raiz, int valor) {
         if (raiz == null) {
-            return new Arvore(valor);
+            return new Arvere(valor);
         }
         if (valor < raiz.conteudo) {
             raiz.esq = insere(raiz.esq, valor);
@@ -23,7 +23,7 @@ class Arvere {
         return raiz;
     }
 
-    Arvore buscaRecursiva(Arvore raiz, int valor) {
+    Arvere buscaRecursiva(Arvere raiz, int valor) {
         if (raiz == null || raiz.conteudo == valor) {
             return raiz;
         }
@@ -34,9 +34,9 @@ class Arvere {
         }
     }
 
-    Arvore buscaIterativa(Arvore raiz, int valor) {
+    Arvere buscaIterativa(Arvere raiz, int valor) {
         while (raiz != null && raiz.conteudo != valor) {
-            if (raiz.conteudo >valor) {
+            if (raiz.conteudo > valor) {
                 raiz = raiz.esq;
             } else {
                 raiz = raiz.dir;
@@ -45,11 +45,10 @@ class Arvere {
         return raiz;
     }
 
-
     public static void main(String[] args) {
-        Arvore arvore = new Arvore(6);
-        Arvore raiz = arvore;
-
+        Arvere arvore = new Arvere(6);
+        Arvere raiz = arvore;
+        
         raiz = arvore.insere(raiz, 5);
         raiz = arvore.insere(raiz, 15);
         raiz = arvore.insere(raiz, 3);
@@ -57,18 +56,18 @@ class Arvere {
         raiz = arvore.insere(raiz, 12);
         raiz = arvore.insere(raiz, 18);
 
-
-    Arvore resultadoRecursivo = arvore.buscaRecursiva(raiz, 7);
+        Arvere resultadoRecursivo = arvore.buscaRecursiva(raiz, 7);
         if (resultadoRecursivo != null) {
             System.out.println("Recursivamente: " + resultadoRecursivo.conteudo);
         } else {
             System.out.println("Não tem.");
         }
 
-        Arvore resultadoIterativo = arvore.buscaIterativa(raiz, 12);
+        Arvere resultadoIterativo = arvore.buscaIterativa(raiz, 12);
         if (resultadoIterativo != null) {
             System.out.println("Iterativamente: " + resultadoIterativo.conteudo);
         } else {
             System.out.println("Não tem.");
         }
     }
+}
