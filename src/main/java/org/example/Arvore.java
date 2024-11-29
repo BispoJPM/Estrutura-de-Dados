@@ -23,28 +23,6 @@ class Arvore {
         return raiz;
     }
     
-    // Arvore buscaRecursiva(Arvore raiz, int valor) {
-    //     if (raiz == null || raiz.conteudo == valor) {
-    //         return raiz;
-    //     }
-    //     if (raiz.conteudo > valor) {
-    //         return buscaRecursiva(raiz.esq, valor);
-    //     } else {
-    //         return buscaRecursiva(raiz.dir, valor);
-    //     }
-    // }
-
-    // Arvore buscaIterativa(Arvore raiz, int valor) {
-    //     while (raiz != null && raiz.conteudo != valor) {
-    //         if (raiz.conteudo >valor) {
-    //             raiz = raiz.esq;
-    //         } else {
-    //             raiz = raiz.dir;
-    //         }
-    //     }
-    //     return raiz;
-    // }
-
         void linhaVertical(Arvore raiz) {
             if (raiz != null) {
                 linhaVertical(raiz.esq);
@@ -120,19 +98,6 @@ class Arvore {
         raiz = arvore.remove(15);
         System.out.println("Árvore depois de remover:");
         arvore.linhaVertical(raiz);
-        
-        // Arvore resultadoRecursivo = arvore.buscaRecursiva(raiz, 7);
-        // if (resultadoRecursivo != null) {
-        //     System.out.println("Recursivamente: " + resultadoRecursivo.conteudo);
-        // } else {
-        //     System.out.println("Não tem.");
-        // }
-
-        // Arvore resultadoIterativo = arvore.buscaIterativa(raiz, 12);
-        // if (resultadoIterativo != null) {
-        //     System.out.println("Iterativamente: " + resultadoIterativo.conteudo);
-        // } else {
-        //     System.out.println("Não tem.");
         }
     }
 
