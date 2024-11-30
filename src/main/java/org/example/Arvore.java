@@ -51,50 +51,40 @@ class Arvore {
 
         return notual != null ? caminho : new ArrayList<>();
     }
-    
+
     Arvore removeC(Arvore raiz, List<Integer> caminho) {
         if (caminho.isEmpty() || raiz == null) {
-            return raiz;
-        }
+            return raiz; }
+
         Arvore notual = raiz;
         Arvore pai = null;
-        
-        for (int a = 0; a < caminho.size(); a++) {
+
+        for (int it = 0; it < caminho.size() - 1; it++) {
             pai = notual;
-            if (caminho.get(a) < notual.conteudo) {
-                notual = notual.esq;
-            } else if (caminho.get(a) > notual.conteudo) {
-                notual = notual.dir;
-            } else {
-                break;
-            }
-        }
-        
+            notual = (caminho.get(it + 1) < notual.conteudo) ? notual.esq : notual.dir; }
+
         if (notual != null) {
             if (notual.esq == null && notual.dir == null) {
                 if (pai != null) {
-                    if (pai.esq == notual) {
-                        pai.esq = null;
-                    } else {
-                        pai.dir = null;
-                    }
+                    if (pai.esq == notual) pai.esq = null;
+                    else pai.dir = null;
                 } else {
-                    raiz = null;
-                }
-            }
-            else if (notual.esq == null || notual.dir == null) {
+                    raiz = null; }
+            } else if (notual.esq == null || notual.dir == null) {
                 Arvore filho = (notual.esq != null) ? notual.esq : notual.dir;
                 if (pai != null) {
-                    if (pai.esq == notual) {
-                        pai.esq = filho;
-                    } else {
-                        pai.dir = filho;
-                    }
+                    if (pai.esq == notual) pai.esq = filho;
+                    else pai.dir = filho;
                 } else {
-                    raiz = filho;
-                }
-            }
-            // else {
+                    raiz = filho; }
+
+            } else {
+                Arvore maiorzinho = encontraG(notual.esq);
+                notual.conteudo = maiorzinho.conteudo;
+                notual.esq = removeC(notual.esq, buscaCaminho(notual.esq, maiorzinho.conteudo)); }
+        } return raiz; }
+
+    // else {
             //             Arvore minimuzao = encontraP(notual.dir);
             //             notual.conteudo = minimuzao.conteudo;
             //             notual.dir = removeC(notual.dir, List.of(minimuzao.conteudo));
@@ -102,21 +92,12 @@ class Arvore {
             //     }
             //     return raiz;
             // }
-            else {
-                Arvore maiorzinho = encontraG(notual.esq);
-                notual.conteudo = maiorzinho.conteudo;
-                notual.esq = removeC(notual.esq, List.of(maiorzinho.conteudo));
-            }
-        }
-        return raiz;
-    }
+
 
     Arvore encontraG(Arvore raiz) {
         while (raiz.dir != null) {
-            raiz = raiz.dir;
-        }
-        return raiz;
-    }
+            raiz = raiz.dir; }
+        return raiz; }
 
     // Arvore encontraP(Arvore raiz) {
     //     while (raiz.esq != null) {
@@ -146,9 +127,8 @@ class Arvore {
         arvore.linhaHorizontal(raiz);
         List<Integer> caminho = arvore.buscaCaminho(raiz, 18);
         if (!caminho.isEmpty()) {
-            raiz = arvore.removeC(raiz, caminho);
-        }
-        System.out.println("\n" + "Árvore após remoção:");
+            raiz = arvore.removeC(raiz, caminho);}
+        System.out.println("\n" + "Árvere:");
         arvore.linhaHorizontal(raiz);
     }
 }
