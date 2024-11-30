@@ -30,19 +30,35 @@ class Arvore {
                 linhaVertical(raiz.dir);
             }
         }
-    Arvore remove(int valor) {
-        return remove(this, valor);
+
+    Arvore buscaRecursiva(Arvore raiz, int valor) {
+        if (raiz == null || raiz.conteudo == valor) {
+            return raiz;
+        }
+        if (raiz.conteudo > valor) {
+            return buscaRecursiva(raiz.esq, valor);
+        } else {
+            return buscaRecursiva(raiz.dir, valor);
+        }
     }
-    
-    private Arvore remove(Arvore raiz, int valor) {
+
+    public Arvore remove(int valor) {
+        Arvore buscaRe = buscaRecursiva(this, valor);  
+        if (buscaRe != null) {
+            return remove(this, buscaRe);  
+        }
+        return this; 
+    }
+
+    public Arvore remove(Arvore raiz, Arvore buscaRe) {
         if (raiz == null) {
             return null;
         }
 
-        if (valor < raiz.conteudo) {
-            raiz.esq = remove(raiz.esq, valor);
-        } else if (valor > raiz.conteudo) {
-            raiz.dir = remove(raiz.dir, valor);
+        if (buscaRe.conteudo < raiz.conteudo) {
+            raiz.esq = remove(raiz.esq, buscaRe);
+        } else if (buscaRe.conteudo > raiz.conteudo) {
+            raiz.dir = remove(raiz.dir, buscaRe);
         } else {
             if (raiz.esq == null && raiz.dir == null) {
                 return null;
@@ -55,7 +71,7 @@ class Arvore {
             else {
                 Arvore maiorzinho = encontraMaior(raiz.esq);
                 raiz.conteudo = maiorzinho.conteudo;
-                raiz.esq = remove(raiz.esq, maiorzinho.conteudo);
+                raiz.esq = remove(raiz.esq, maiorzinho);
             }
         }
         return raiz;
