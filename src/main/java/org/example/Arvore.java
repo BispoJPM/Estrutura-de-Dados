@@ -22,14 +22,15 @@ class Arvore {
         }
         return raiz;
     }
-    
-        void linhaVertical(Arvore raiz) {
-            if (raiz != null) {
-                linhaVertical(raiz.esq);
-                System.out.println(raiz.conteudo);
-                linhaVertical(raiz.dir);
-            }
+
+    void linhaHorizontal(Arvore raiz) {
+        if (raiz != null) {
+            linhaHorizontal(raiz.esq);
+            System.out.print(raiz.conteudo + " "); // Imprime na mesma linha
+            linhaHorizontal(raiz.dir);
         }
+    }
+
 
     Arvore buscaRecursiva(Arvore raiz, int valor) {
         if (raiz == null || raiz.conteudo == valor) {
@@ -42,55 +43,33 @@ class Arvore {
         }
     }
 
-    public Arvore remove(int valor) {
-        Arvore buscaRe = buscaRecursiva(this, valor);  
-        if (buscaRe != null) {
-            return remove(this, buscaRe);  
-        }
-        return this; 
-    }
-
-    public Arvore remove(Arvore raiz, Arvore buscaRe) {
+    Arvore remove(Arvore raiz, Arvore buscaRe) {
         if (raiz == null) {
             return null;
         }
 
-        if (buscaRe.conteudo < raiz.conteudo) {
-            raiz.esq = remove(raiz.esq, buscaRe);
-        } else if (buscaRe.conteudo > raiz.conteudo) {
-            raiz.dir = remove(raiz.dir, buscaRe);
-        } else {
+        if (raiz == buscaRe) {
             if (raiz.esq == null && raiz.dir == null) {
                 return null;
             }
-            else if (raiz.esq == null) {
+            if (raiz.esq == null) {
                 return raiz.dir;
-            } else if (raiz.dir == null) {
+            }
+            if (raiz.dir == null) {
                 return raiz.esq;
             }
-            else {
-                Arvore maiorzinho = encontraMaior(raiz.esq);
-                raiz.conteudo = maiorzinho.conteudo;
-                raiz.esq = remove(raiz.esq, maiorzinho);
+            Arvore maiorzinho = encontraMaior(raiz.esq);
+            raiz.conteudo = maiorzinho.conteudo;
+            raiz.esq = remove(raiz.esq, maiorzinho);
+        } else {
+            if (buscaRe.conteudo < raiz.conteudo) {
+                raiz.esq = remove(raiz.esq, buscaRe);
+            } else {
+                raiz.dir = remove(raiz.dir, buscaRe);
             }
         }
         return raiz;
     }
-            // else {
-            //             Arvore minimuzao = encontraMinimo(raiz.dir);
-            //             raiz.conteudo = minimuzao.conteudo;
-            //             raiz.dir = remove(raiz.dir, minimuzao.conteudo);
-            //         }
-            //     }
-            //     return raiz;
-            // }
-
-    // Arvore encontraMinimo(Arvore raiz) {
-    //     while (raiz.esq != null) {
-    //         raiz = raiz.esq;
-    //     }
-    //     return raiz;
-    // }
 
     Arvore encontraMaior(Arvore raiz) {
         while (raiz.dir != null) {
@@ -98,9 +77,9 @@ class Arvore {
         }
         return raiz;
     }
-    
+
     public static void main(String[] args) {
-        Arvore arvore = new Arvore(6);
+        Arvore arvore = new Arvore(25);
         Arvore raiz = arvore;
 
         raiz = arvore.insere(raiz, 5);
@@ -109,11 +88,19 @@ class Arvore {
         raiz = arvore.insere(raiz, 7);
         raiz = arvore.insere(raiz, 12);
         raiz = arvore.insere(raiz, 18);
-        System.out.println("Árvore:");
-        arvore.linhaVertical(raiz);
-        raiz = arvore.remove(15);
-        System.out.println("Árvere:");
-        arvore.linhaVertical(raiz);
-        }
-    }
+        raiz = arvore.insere(raiz, 24);
+        raiz = arvore.insere(raiz, 19);
+        raiz = arvore.insere(raiz, 31);
+        raiz = arvore.insere(raiz, 45);
+        raiz = arvore.insere(raiz, 52);
+        raiz = arvore.insere(raiz, 81);
 
+        System.out.println("Árvore:");
+        arvore.linhaHorizontal(raiz);
+        Arvore buscaRe = arvore.buscaRecursiva(raiz, 18);
+        if (buscaRe != null) {
+            raiz = arvore.remove(raiz, buscaRe);}
+        System.out.println("\n" + "Árvore após remoção:");
+        arvore.linhaHorizontal(raiz);
+    }
+}
