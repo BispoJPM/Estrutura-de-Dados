@@ -1,19 +1,22 @@
 package org.example;
 
-class Arvere {
-    int conteudo;
-    Arvere esq;
-    Arvere dir;
+import java.util.ArrayList;
+import java.util.List;
 
-    Arvere(int conteudo) {
+class Arvore {
+    int conteudo;
+    Arvore esq;
+    Arvore dir;
+
+    Arvore(int conteudo) {
         this.conteudo = conteudo;
         this.esq = null;
         this.dir = null;
     }
 
-    Arvere insere(Arvere raiz, int valor) {
+    Arvore insere(Arvore raiz, int valor) {
         if (raiz == null) {
-            return new Arvere(valor);
+            return new Arvore(valor);
         }
         if (valor < raiz.conteudo) {
             raiz.esq = insere(raiz.esq, valor);
@@ -23,31 +26,17 @@ class Arvere {
         return raiz;
     }
 
-    Arvere buscaRecursiva(Arvere raiz, int valor) {
-        if (raiz == null || raiz.conteudo == valor) {
-            return raiz;
-        }
-        if (raiz.conteudo > valor) {
-            return buscaRecursiva(raiz.esq, valor);
-        } else {
-            return buscaRecursiva(raiz.dir, valor);
+    void linhaHorizontal(Arvore raiz) {
+        if (raiz != null) {
+            linhaHorizontal(raiz.esq);
+            System.out.print(raiz.conteudo + " ");
+            linhaHorizontal(raiz.dir);
         }
     }
-
-    Arvere buscaIterativa(Arvere raiz, int valor) {
-        while (raiz != null && raiz.conteudo != valor) {
-            if (raiz.conteudo > valor) {
-                raiz = raiz.esq;
-            } else {
-                raiz = raiz.dir;
-            }
-        }
-        return raiz;
-    }
-
-    List<Integer> buscaCaminho(Arvere raiz, int valor) {
+    
+    List<Integer> buscaCaminho(Arvore raiz, int valor) {
         List<Integer> caminho = new ArrayList<>();
-        Arvere noAtual = raiz;
+        Arvore noAtual = raiz;
 
         while (noAtual != null) {
             caminho.add(noAtual.conteudo);
@@ -62,63 +51,91 @@ class Arvere {
 
         return noAtual != null ? caminho : new ArrayList<>();
     }
-
-    List<Integer> buscaIntervalo(Arvere raiz, int min, int max) {
-        List<Integer> resultado = new ArrayList<>();
-        if (raiz == null) {
-            return resultado;
+    
+    Arvore removeC(Arvore raiz, List<Integer> caminho) {
+        if (caminho.isEmpty() || raiz == null) {
+            return raiz;
         }
-
-        if (raiz.conteudo >= min && raiz.conteudo <= max) {
-            resultado.add(raiz.conteudo);
+        Arvore noAtual = raiz;
+        Arvore pai = null;
+        
+        for (int a = 0; a < caminho.size(); a++) {
+            pai = noAtual;
+            if (caminho.get(a) < noAtual.conteudo) {
+                noAtual = noAtual.esq;
+            } else if (caminho.get(a) > noAtual.conteudo) {
+                noAtual = noAtual.dir;
+            } else {
+                break;
+            }
         }
-
-        if (min < raiz.conteudo) {
-            resultado.addAll(buscaIntervalo(raiz.esq, min, max));
+        
+        if (noAtual != null) {
+            if (noAtual.esq == null && noAtual.dir == null) {
+                if (pai != null) {
+                    if (pai.esq == noAtual) {
+                        pai.esq = null;
+                    } else {
+                        pai.dir = null;
+                    }
+                } else {
+                    raiz = null;
+                }
+            }
+            else if (noAtual.esq == null || noAtual.dir == null) {
+                Arvore filho = (noAtual.esq != null) ? noAtual.esq : noAtual.dir;
+                if (pai != null) {
+                    if (pai.esq == noAtual) {
+                        pai.esq = filho;
+                    } else {
+                        pai.dir = filho;
+                    }
+                } else {
+                    raiz = filho;
+                }
+            }
+            else {
+                Arvore maiorzinho = encontraMaior(noAtual.esq);
+                noAtual.conteudo = maiorzinho.conteudo;
+                noAtual.esq = removeC(noAtual.esq, List.of(maiorzinho.conteudo));
+            }
         }
+        return raiz;
+    }
 
-        if (max > raiz.conteudo) {
-            resultado.addAll(buscaIntervalo(raiz.dir, min, max));
+    Arvore encontraMaior(Arvore raiz) {
+        while (raiz.dir != null) {
+            raiz = raiz.dir;
         }
-
-        return resultado;
+        return raiz;
     }
 
     public static void main(String[] args) {
-        Arvere arvore = new Arvere(17);
-        Arvere raiz = arvore;
-        
+        Arvore arvore = new Arvore(25);
+        Arvore raiz = arvore;
+
         raiz = arvore.insere(raiz, 5);
         raiz = arvore.insere(raiz, 15);
         raiz = arvore.insere(raiz, 3);
         raiz = arvore.insere(raiz, 7);
         raiz = arvore.insere(raiz, 12);
         raiz = arvore.insere(raiz, 18);
-        raiz = arvore.insere(raiz, 34);
-        raiz = arvore.insere(raiz, 41);
-        raiz = arvore.insere(raiz, 22);
+        raiz = arvore.insere(raiz, 24);
         raiz = arvore.insere(raiz, 19);
-        raiz = arvore.insere(raiz, 11);
-        raiz = arvore.insere(raiz, 28);
+        raiz = arvore.insere(raiz, 31);
+        raiz = arvore.insere(raiz, 45);
+        raiz = arvore.insere(raiz, 52);
+        raiz = arvore.insere(raiz, 81);
 
-        Arvere resultadoRecursivo = arvore.buscaRecursiva(raiz, 7);
-        if (resultadoRecursivo != null) {
-            System.out.println("Recursivamente: " + resultadoRecursivo.conteudo);
-        } else {
-            System.out.println("Não tem.");
+        System.out.println("Árvore:");
+        arvore.linhaHorizontal(raiz);
+
+        List<Integer> caminho = arvore.buscaCaminho(raiz, 18);
+        if (!caminho.isEmpty()) {
+            raiz = arvore.removeC(raiz, caminho);
         }
 
-        Arvere resultadoIterativo = arvore.buscaIterativa(raiz, 12);
-        if (resultadoIterativo != null) {
-            System.out.println("Iterativamente: " + resultadoIterativo.conteudo);
-        } else {
-            System.out.println("Não tem.");
-
-        List<Integer> caminho = arvore.buscaCaminho(raiz, 7);
-        System.out.println("Caminho até 7: " + caminho);
-
-        List<Integer> intervalo = arvore.buscaIntervalo(raiz, 5, 12);
-        System.out.println("Intervalo [5, 12]: " + intervalo);
-        }
+        System.out.println("\n" + "Árvore após remoção:");
+        arvore.linhaHorizontal(raiz);
     }
 }
