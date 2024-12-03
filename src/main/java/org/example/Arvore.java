@@ -1,8 +1,5 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-
 class Arvore {
     int conteudo;
     Arvore esq;
@@ -26,85 +23,89 @@ class Arvore {
         return raiz;
     }
 
-    void linhaHorizontal(Arvore raiz) {
+    void erd (Arvore raiz) {
         if (raiz != null) {
-            linhaHorizontal(raiz.esq);
+            erd(raiz.esq);
             System.out.print(raiz.conteudo + " ");
-            linhaHorizontal(raiz.dir);
+            erd(raiz.dir);
         }
     }
     
-    List<Integer> buscaCaminho(Arvore raiz, int valor) {
-        List<Integer> caminho = new ArrayList<>();
-        Arvore notual = raiz;
+    class Busca {
+        Arvore pai;
+        Arvore procurado;
 
-        while (notual != null) {
-            caminho.add(notual.conteudo);
-            if (valor < notual.conteudo) {
-                notual = notual.esq;
-            } else if (valor > notual.conteudo) {
-                notual = notual.dir;
+        Busca(Arvore pai, Arvore no) {
+            this.pai = pai;
+            this.procurado = no;
+        }
+    }
+
+    Busca buscaCaminho(Arvore raiz, int valor) {
+        Arvore procurado = raiz;
+        Arvore pai = null;
+
+        while (procurado != null && procurado.conteudo != valor) {
+            pai = procurado;
+            if (valor < procurado.conteudo) {
+                procurado = procurado.esq;
             } else {
-                break;
+                procurado = procurado.dir;
             }
         }
 
-        return notual != null ? caminho : new ArrayList<>();
+        return (procurado != null) ? new Busca(pai, procurado) : null;
     }
 
-    Arvore removeC(Arvore raiz, List<Integer> caminho) {
-        if (caminho.isEmpty() || raiz == null) {
-            return raiz; }
+    Arvore remover(Arvore pai, Arvore no) {
+        if (no == null) {
+            return null;
+        }
 
-        Arvore notual = raiz;
-        Arvore pai = null;
+        if (no.esq == null && no.dir == null) {
+            if (pai != null) {
+                if (pai.esq == no) {
+                    pai.esq = null;
+                } else if (pai.dir == no) {
+                    pai.dir = null;
+                }
+            }
+            return null;
+        }
 
-        for (int it = 0; it < caminho.size() - 1; it++) {
-            pai = notual;
-            notual = (caminho.get(it + 1) < notual.conteudo) ? notual.esq : notual.dir; }
+        if (no.esq == null) {
+            if (pai != null) {
+                if (pai.esq == no) {
+                    pai.esq = no.dir;
+                } else if (pai.dir == no) {
+                    pai.dir = no.dir;
+                }
+            }
+            return no.dir;
+        } else if (no.dir == null) {
+            if (pai != null) {
+                if (pai.esq == no) {
+                    pai.esq = no.esq;
+                } else if (pai.dir == no) {
+                    pai.dir = no.esq;
+                }
+            }
+            return no.esq;
+        }
 
-        if (notual != null) {
-            if (notual.esq == null && notual.dir == null) {
-                if (pai != null) {
-                    if (pai.esq == notual) pai.esq = null;
-                    else pai.dir = null;
-                } else {
-                    raiz = null; }
-            } else if (notual.esq == null || notual.dir == null) {
-                Arvore filho = (notual.esq != null) ? notual.esq : notual.dir;
-                if (pai != null) {
-                    if (pai.esq == notual) pai.esq = filho;
-                    else pai.dir = filho;
-                } else {
-                    raiz = filho; }
+        Arvore sucessor = obterSucessor(no.dir);
+        no.conteudo = sucessor.conteudo;
+        no.dir = remover(no, sucessor);
+        return no;
+    }
 
-            } else {
-                Arvore maiorzinho = encontraG(notual.esq);
-                notual.conteudo = maiorzinho.conteudo;
-                notual.esq = removeC(notual.esq, buscaCaminho(notual.esq, maiorzinho.conteudo)); }
-        } return raiz; }
-
-    // else {
-            //             Arvore minimuzao = encontraP(notual.dir);
-            //             notual.conteudo = minimuzao.conteudo;
-            //             notual.dir = removeC(notual.dir, List.of(minimuzao.conteudo));
-            //         }
-            //     }
-            //     return raiz;
-            // }
-
-
-    Arvore encontraG(Arvore raiz) {
-        while (raiz.dir != null) {
-            raiz = raiz.dir; }
-        return raiz; }
-
-    // Arvore encontraP(Arvore raiz) {
-    //     while (raiz.esq != null) {
-    //         raiz = raiz.esq;
-    //     }
-    //     return raiz;
-    // }
+    Arvore obterSucessor(Arvore no) {
+        Arvore atual = no;
+        while (atual.esq != null) {
+            atual = atual.esq;
+        }
+        return atual;
+    }
 
     public static void main(String[] args) {
         Arvore arvore = new Arvore(25);
@@ -124,11 +125,21 @@ class Arvore {
         raiz = arvore.insere(raiz, 81);
 
         System.out.println("Árvore:");
-        arvore.linhaHorizontal(raiz);
-        List<Integer> caminho = arvore.buscaCaminho(raiz, 18);
-        if (!caminho.isEmpty()) {
-            raiz = arvore.removeC(raiz, caminho);}
-        System.out.println("\n" + "Árvere:");
-        arvore.linhaHorizontal(raiz);
+        arvore.erd(raiz);
+        Busca Busca = arvore.buscaCaminho(raiz, 31);
+
+        if (Busca != null) {
+            Arvore pai = Busca.pai;
+            Arvore no = Busca.procurado;
+
+            if (pai == null) {
+                raiz = arvore.remover(null, no);
+            } else {
+                arvore.remover(pai, no);
+            }
+
+            System.out.println("\nÁrvore:");
+            arvore.erd(raiz);
+        }
     }
 }
