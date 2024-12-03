@@ -99,8 +99,8 @@ class Arvore {
         return procurado;
     }
 
-    Arvore obtermenorzao(Arvore procura) {
-        Arvore atual = procura;
+    Arvore obtermenorzao(Arvore procurado) {
+        Arvore atual = procurado;
         while (atual.esq != null) {
             atual = atual.esq;
         }
@@ -130,12 +130,12 @@ class Arvore {
 
         if (Busca != null) {
             Arvore pai = Busca.pai;
-            Arvore procura = Busca.procurado;
+            Arvore procurado = Busca.procurado;
 
             if (pai == null) {
-                raiz = arvore.remover(null, procura);
+                raiz = arvore.remover(null, procurado);
             } else {
-                arvore.remover(pai, procura);
+                arvore.remover(pai, procurado);
             }
 
             System.out.println("\nÁrvore:");
