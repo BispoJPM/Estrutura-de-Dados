@@ -57,50 +57,50 @@ class Arvore {
         return (procurado != null) ? new Busca(pai, procurado) : null;
     }
 
-    Arvore remover(Arvore pai, Arvore no) {
-        if (no == null) {
+    Arvore remover(Arvore pai, Arvore procurado) {
+        if (procurado == null) {
             return null;
         }
 
-        if (no.esq == null && no.dir == null) {
+        if (procurado.esq == null && procurado.dir == null) {
             if (pai != null) {
-                if (pai.esq == no) {
+                if (pai.esq == procurado) {
                     pai.esq = null;
-                } else if (pai.dir == no) {
+                } else if (pai.dir == procurado) {
                     pai.dir = null;
                 }
             }
             return null;
         }
 
-        if (no.esq == null) {
+        if (procurado.esq == null) {
             if (pai != null) {
-                if (pai.esq == no) {
-                    pai.esq = no.dir;
-                } else if (pai.dir == no) {
-                    pai.dir = no.dir;
+                if (pai.esq == procurado) {
+                    pai.esq = procurado.dir;
+                } else if (pai.dir == procurado) {
+                    pai.dir = procurado.dir;
                 }
             }
-            return no.dir;
-        } else if (no.dir == null) {
+            return procurado.dir;
+        } else if (procurado.dir == null) {
             if (pai != null) {
-                if (pai.esq == no) {
-                    pai.esq = no.esq;
-                } else if (pai.dir == no) {
-                    pai.dir = no.esq;
+                if (pai.esq == procurado) {
+                    pai.esq = procurado.esq;
+                } else if (pai.dir == procurado) {
+                    pai.dir = procurado.esq;
                 }
             }
-            return no.esq;
+            return procurado.esq;
         }
 
-        Arvore menorzao = obtermenorzao(no.dir);
-        no.conteudo = menorzao.conteudo;
-        no.dir = remover(no, menorzao);
-        return no;
+        Arvore menorzao = obtermenorzao(procurado.dir);
+        procurado.conteudo = menorzao.conteudo;
+        procurado.dir = remover(procurado, menorzao);
+        return procurado;
     }
 
-    Arvore obtermenorzao(Arvore no) {
-        Arvore atual = no;
+    Arvore obtermenorzao(Arvore procura) {
+        Arvore atual = procura;
         while (atual.esq != null) {
             atual = atual.esq;
         }
@@ -130,12 +130,12 @@ class Arvore {
 
         if (Busca != null) {
             Arvore pai = Busca.pai;
-            Arvore no = Busca.procurado;
+            Arvore procura = Busca.procurado;
 
             if (pai == null) {
-                raiz = arvore.remover(null, no);
+                raiz = arvore.remover(null, procura);
             } else {
-                arvore.remover(pai, no);
+                arvore.remover(pai, procura);
             }
 
             System.out.println("\nÁrvore:");
