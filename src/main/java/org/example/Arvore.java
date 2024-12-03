@@ -93,13 +93,13 @@ class Arvore {
             return no.esq;
         }
 
-        Arvore sucessor = obterSucessor(no.dir);
-        no.conteudo = sucessor.conteudo;
-        no.dir = remover(no, sucessor);
+        Arvore menorzao = obtermenorzao(no.dir);
+        no.conteudo = menorzao.conteudo;
+        no.dir = remover(no, menorzao);
         return no;
     }
 
-    Arvore obterSucessor(Arvore no) {
+    Arvore obtermenorzao(Arvore no) {
         Arvore atual = no;
         while (atual.esq != null) {
             atual = atual.esq;
