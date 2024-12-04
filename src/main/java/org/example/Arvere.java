@@ -1,19 +1,22 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class Arvere {
     int conteudo;
-    Arvore esq;
-    Arvore dir;
+    Arvere esq;
+    Arvere dir;
 
-    Arvore(int conteudo) {
+    Arvere(int conteudo) {
         this.conteudo = conteudo;
         this.esq = null;
         this.dir = null;
     }
 
-    Arvore insere(Arvore raiz, int valor) {
+    Arvere insere(Arvere raiz, int valor) {
         if (raiz == null) {
-            return new Arvore(valor);
+            return new Arvere(valor);
         }
         if (valor < raiz.conteudo) {
             raiz.esq = insere(raiz.esq, valor);
@@ -23,7 +26,7 @@ class Arvere {
         return raiz;
     }
 
-    Arvore buscaRecursiva(Arvore raiz, int valor) {
+    Arvere buscaRecursiva(Arvere raiz, int valor) {
         if (raiz == null || raiz.conteudo == valor) {
             return raiz;
         }
@@ -34,9 +37,9 @@ class Arvere {
         }
     }
 
-    Arvore buscaIterativa(Arvore raiz, int valor) {
+    Arvere buscaIterativa(Arvere raiz, int valor) {
         while (raiz != null && raiz.conteudo != valor) {
-            if (raiz.conteudo >valor) {
+            if (raiz.conteudo > valor) {
                 raiz = raiz.esq;
             } else {
                 raiz = raiz.dir;
@@ -60,6 +63,7 @@ class Arvere {
         }
         return noAtual != null ? caminho : new ArrayList<>();
     }
+
     List<Integer> buscaIntervalo(Arvere raiz, int min, int max) {
         List<Integer> resultado = new ArrayList<>();
         if (raiz == null) {
@@ -76,7 +80,7 @@ class Arvere {
         }
         return resultado;
     }
-    
+
     public static void main(String[] args) {
         Arvere arvore = new Arvere(17);
         Arvere raiz = arvore;
@@ -94,13 +98,22 @@ class Arvere {
 
         Arvere resultadoRecursivo = arvore.buscaRecursiva(raiz, 7);
         if (resultadoRecursivo != null) {
+            System.out.println("Recursivamente: " + resultadoRecursivo.conteudo);
+        } else {
+            System.out.println("Não encontrado.");
+        }
+
+        Arvere resultadoIterativo = arvore.buscaIterativa(raiz, 7);
+        if (resultadoIterativo != null) {
             System.out.println("Iterativamente: " + resultadoIterativo.conteudo);
         } else {
-            System.out.println("Não tem.");
+            System.out.println("Não encontrado.");
+        }
+
         List<Integer> caminho = arvore.buscaCaminho(raiz, 7);
         System.out.println("Caminho até 7: " + caminho);
+
         List<Integer> intervalo = arvore.buscaIntervalo(raiz, 5, 12);
         System.out.println("Intervalo [5, 12]: " + intervalo);
-        }
     }
 }

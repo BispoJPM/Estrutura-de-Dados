@@ -23,25 +23,15 @@ class Arvore {
         return raiz;
     }
 
-    void erd (Arvore raiz) {
+    void erd(Arvore raiz) {
         if (raiz != null) {
             erd(raiz.esq);
             System.out.print(raiz.conteudo + " ");
             erd(raiz.dir);
         }
     }
-    
-    class Busca {
-        Arvore pai;
-        Arvore procurado;
 
-        Busca(Arvore pai, Arvore no) {
-            this.pai = pai;
-            this.procurado = no;
-        }
-    }
-
-    Busca buscaCaminho(Arvore raiz, int valor) {
+    Arvore[] busca(Arvore raiz, int valor) {
         Arvore procurado = raiz;
         Arvore pai = null;
 
@@ -53,8 +43,11 @@ class Arvore {
                 procurado = procurado.dir;
             }
         }
-
-        return (procurado != null) ? new Busca(pai, procurado) : null;
+        if (procurado != null) {
+            return new Arvore[]{pai, procurado};
+        } else {
+            return null;
+        }
     }
 
     Arvore remover(Arvore pai, Arvore procurado) {
@@ -126,19 +119,16 @@ class Arvore {
 
         System.out.println("Árvore:");
         arvore.erd(raiz);
-        Busca Busca = arvore.buscaCaminho(raiz, 31);
-
-        if (Busca != null) {
-            Arvore pai = Busca.pai;
-            Arvore procurado = Busca.procurado;
-
+        Arvore[] resultado = arvore.busca(raiz, 31);
+        if (resultado != null) {
+            Arvore pai = resultado[0];
+            Arvore procurado = resultado[1];
             if (pai == null) {
                 raiz = arvore.remover(null, procurado);
             } else {
                 arvore.remover(pai, procurado);
             }
-
-            System.out.println("\nÁrvore:");
+            System.out.println("\nÁrvere:");
             arvore.erd(raiz);
         }
     }

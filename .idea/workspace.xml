@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64061817-e135-4566-bcf4-6a77409d49f7" name="Changes" comment="27/09 - Pilha usando lista encadeada, com e sem cabeça">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Arvore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PilhaCabeca/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PilhaCabeca/src/main/java/org/example/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PilhaCabeca/src/main/java/org/example/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PilhaCabeca/src/main/java/org/example/img.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PilhaCabeca/target/classes/org/example/Main$nozinho.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PilhaCabeca/target/classes/org/example/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PilhaCabeca/target/classes/org/example/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PilhaCabeca/target/classes/org/example/img.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Exec.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Lista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Lista.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/cabeca.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Arvere.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Arvere.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Arvore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Arvore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/array.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +25,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "BispoJPM"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/BispoJPM/Estrutura-de-Dados.git",
+    "accountId": "0a85f2f4-f1c8-45e0-a920-9f0f9b76cc8a"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
 }</component>
@@ -47,6 +48,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Arvore.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.Pilha.executor": "Run",
     "Application.fila.executor": "Run",
@@ -173,8 +175,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
       </set>
     </attachedChunks>
   </component>
@@ -191,6 +193,7 @@
       <workItem from="1729252726062" duration="5211000" />
       <workItem from="1731421735223" duration="1411000" />
       <workItem from="1731423863709" duration="1607000" />
+      <workItem from="1733324184564" duration="2918000" />
     </task>
     <task id="LOCAL-00001" summary="27/09 - Pilha usando lista encadeada, com e sem cabeça">
       <option name="closed" value="true" />
